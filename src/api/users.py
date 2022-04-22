@@ -1,9 +1,9 @@
-from typing import List
+from typing import List, Dict
 
 from fastapi import APIRouter, status, Depends, Path
 
 from src.api.protocols import UserServiceProtocol
-from src.user.models import UserResponseV1, UserAddRequestV1
+from src.user.models import UserResponseV1, UserAddRequestV1, ResultUserRepo
 
 router = APIRouter(
     tags=['Users']
@@ -58,3 +58,16 @@ def delete_user(
         user_service: UserServiceProtocol = Depends()
 ):
     user_service.delete_user_by_id(id)
+
+
+@router.get(
+    path='/v1/users/{id}/stats',
+    response_model=ResultUserRepo,
+    summary='Показать репозитории пользователя',
+    description='Показывает епозитории пользователя.'
+)
+def status_repo_by_id(
+        id: int = Path(..., ge=1),
+        user_service: UserServiceProtocol = Depends()
+):
+    return user_service.status_repo_by_id(id)

@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Dict
 
-from src.user.models import UserResponseV1, UserAddRequestV1
+from src.user.models import UserResponseV1, UserAddRequestV1,ResultUserRepo
 
 
 class UserServiceProtocol:
@@ -15,3 +15,6 @@ class UserServiceProtocol:
 
     def delete_user_by_id(self, id: int) -> None:
         raise NotImplementedError
+
+    def status_repo_by_id(self, id: int) -> ResultUserRepo:
+        return ResultUserRepo
